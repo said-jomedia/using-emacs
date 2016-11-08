@@ -1,4 +1,7 @@
 elpa
+recentf
+myinit.el
+*.dat
 auto-save-list
 *~
 \#*

@@ -1,13 +1,14 @@
 #+STARTUP: overview
 
-
-
 * interface tweaks
 #+BEGIN_SRC emacs-lisp
 (setq inhibit-startup-message t)
 (tool-bar-mode -1)
 (fset 'yes-or-no-p 'y-or-n-p)
 (global-set-key (kbd "<f5>") 'revert-buffer)
+;; text zoom in and out
+(global-set-key [C-mouse-4] 'text-scale-increase)
+(global-set-key [C-mouse-5] 'text-scale-decrease)
 #+END_SRC
 
 * try
@@ -24,7 +25,6 @@
 	:config
 	(which-key-mode))
   #+END_SRC
-
 
 * Org mode
   Org bullets makes things look pretty
@@ -46,8 +46,7 @@
        ((t (:inherit ace-jump-face-foreground :height 3.0))))) 
     ))
   #+END_SRC
-
-* Swiper / Ivy / Counsel
+  Swiper / Ivy / Counsel
   Swiper gives us a really efficient incremental search with regular expressions
   and Ivy / Counsel replace a lot of ido or helms completion functionality
   #+BEGIN_SRC emacs-lisp
@@ -101,17 +100,14 @@
     ))
   #+END_SRC
 
+
 * Themes
   #+BEGIN_SRC emacs-lisp
 
   (use-package color-theme
   :ensure t)
 
-  (use-package zenburn-theme
-  :ensure t
-  :config (load-theme 'zenburn t))
-
-  (load-theme 'leuven t)
+  (load-theme 'manoj-dark t)
   #+END_SRC
 * Reveal.js
   #+BEGIN_SRC emacs-lisp
@@ -134,21 +130,6 @@
       :ensure t
       :init
       (global-flycheck-mode t))
-
-  #+END_SRC
-* Python
-  #+BEGIN_SRC emacs-lisp
-    (use-package jedi
-      :ensure t
-      :init
-      (add-hook 'python-mode-hook 'jedi:setup)
-      (add-hook 'python-mode-hook 'jedi:ac-setup))
-      
-
-      (use-package elpy
-      :ensure t
-      :config 
-      (elpy-enable))
 
   #+END_SRC
 * Yasnippet
@@ -237,3 +218,64 @@
   #+RESULTS:
   : narrow-or-widen-dwim
 
+* Version control (Git)
+   #+BEGIN_SRC emacs-lisp
+   ;; use Emacs package for highlighting uncommitted changes https://github.com/dgutov/diff-hl
+   (use-package diff-hl
+   :ensure t)
+   ;; Magit is an interface to the version control system Git, implemented as an Emacs package.
+   (use-package magit
+   :ensure t)
+   ;; git gutter
+   (use-package git-gutter
+   :ensure t)
+
+   #+END_SRC
+* Work with projects
+  #+BEGIN_SRC emacs-lisp
+   ;; projectile Project Interaction Library for Emacs http://projectile.readthedocs.io
+   (use-package projectile
+   :ensure t)
+   ;; Ivy UI for projectile
+   (use-package counsel-projectile
+   :ensure t)
+   (counsel-projectile-on)
+
+  #+END_SRC
+
+* WEB MODE & PHP
+  #+BEGIN_SRC emacs-lisp
+  ;; web-mode.el is an autonomous emacs major-mode for editing web templates.
+  (use-package web-mode
+  :ensure t)
+  (add-to-list 'auto-mode-alist '("\\.phtml\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.tpl\\.php\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.[agj]sp\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.as[cp]x\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.mustache\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.djhtml\\'" . web-mode))
+  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode))
+  
+  ;; PHP MODE
+  (use-package php-mode
+  :ensure t)
+
+  #+END_SRC
+* NeoTree
+  #+BEGIN_SRC emacs-lisp
+  (use-package neotree
+  :ensure t)
+  (global-set-key [f8] 'neotree-toggle)
+  ;; all-the-icons A utility package to collect various Icon Fonts and propertize them within Emacs.
+  (use-package all-the-icons
+  :ensure t)
+  (setq neo-theme 'icons )
+  #+END_SRC
+* mode-icons 
+Show icons instead of mode names http://projects.ryuslash.org/mode-icons/
+  #+BEGIN_SRC emacs-lisp
+  (use-package mode-icons
+  :ensure t)
+  (mode-icons-mode)
+  #+END_SRC
